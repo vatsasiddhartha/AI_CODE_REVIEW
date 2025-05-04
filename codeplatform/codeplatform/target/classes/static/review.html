@@ -1,0 +1,93 @@
+<!-- review.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Review ✍️</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0e9d2;
+            font-family: 'Poppins', sans-serif;
+        }
+        .review-box {
+            margin-top: 50px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container review-box">
+    <h2 class="text-center mb-4">📝 Your Code Review</h2>
+    <pre id="reviewText" style="white-space: pre-wrap; font-size: 1.1rem;"></pre>
+</div>
+
+<script>
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function loadReview() {
+        const reviewParam = getQueryParam('review');
+
+        if (!reviewParam) {
+            document.getElementById('reviewText').textContent = 'No review content found.';
+            return;
+        }
+
+        try {
+            const decoded = decodeURIComponent(reviewParam);
+            const reviewObj = JSON.parse(decoded);
+
+            let output = reviewObj.output;
+
+            if (!output) {
+                document.getElementById('reviewText').textContent = 'Review content missing.';
+                return;
+            }
+
+            const formattedOutput = formatOutput(output);
+
+            document.getElementById('reviewText').innerHTML = formattedOutput;
+        } catch (e) {
+            console.error(e);
+            document.getElementById('reviewText').textContent = 'Error parsing review.';
+        }
+    }
+
+    function formatOutput(text) {
+        let formatted = text;
+
+        // Code blocks ```python\n...\n```
+        formatted = formatted.replace(/```([\s\S]*?)```/g, '<pre style="background:#f8f9fa;padding:10px;border-radius:8px;"><code>$1</code></pre>');
+
+        // Bold **text**
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        // Bullet points (starting with "- " or "* ")
+        formatted = formatted.replace(/(?:^|\n)[*-] (.*?)(?=\n|$)/g, '<li>$1</li>');
+
+        // Wrap bullet points into <ul> if any <li> found
+        if (formatted.includes('<li>')) {
+            formatted = formatted.replace(/(<li>.*<\/li>)/gs, '<ul style="padding-left:20px;">$1</ul>');
+        }
+
+        // Line breaks
+        formatted = formatted.replace(/\n/g, '<br>');
+
+        return formatted;
+    }
+
+    loadReview();
+</script>
+
+
+
+
+</body>
+</html>

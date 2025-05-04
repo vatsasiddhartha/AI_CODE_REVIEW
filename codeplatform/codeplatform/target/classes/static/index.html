@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to ToodlesCode</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: gravityFall 2s ease-in-out forwards;
+    }
+
+    @keyframes gravityFall {
+      0% { transform: translateY(-200px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      animation: slideIn 2s ease-out;
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateX(-300px); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .languages {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .language-select {
+      margin-top: 20px;
+    }
+
+    .code-box {
+      margin-top: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 700px;
+      font-family: monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      border-left: 5px solid #fff;
+    }
+
+    .next-btn {
+      padding: 12px 35px;
+      font-size: 1.4rem;
+      border: none;
+      border-radius: 12px;
+      background-color: #ffffff;
+      color: #667eea;
+      font-weight: bold;
+      transition: 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .next-btn:hover {
+      background-color: #ddd;
+      color: #764ba2;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+<h1>ToodlesCode</h1>
+<p>Code with Power. Learn with Passion.</p>
+
+<div class="languages">
+  <h3>Supported Languages:</h3>
+  <select class="form-select language-select" id="languageSelect" onchange="showSyntax()">
+    <option value="">-- Select a Language --</option>
+    <option value="java">Java</option>
+    <option value="python">Python</option>
+    <option value="c">C</option>
+    <option value="cpp">C++</option>
+    <option value="js">JavaScript</option>
+  </select>
+</div>
+
+<div class="code-box" id="syntaxBox">
+  <!-- Syntax will appear here -->
+</div>
+
+<button class="next-btn" onclick="nextPage()">Next</button>
+
+<script>
+  const syntaxExamples = {
+    java: `public class HelloWorld {
+  public static void main(String[] args) {
+    System.out.println("Hello, World!");
+  }
+}`,
+    python: `def greet():
+    print("Hello, World!")
+
+greet()`,
+    c: `#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\\n");
+    return 0;
+}`,
+    cpp: `#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}`,
+    js: `function greet() {
+    console.log("Hello, World!");
+}
+
+greet();`
+  };
+
+  function showSyntax() {
+    const selected = document.getElementById("languageSelect").value;
+    const syntaxBox = document.getElementById("syntaxBox");
+    syntaxBox.textContent = selected ? syntaxExamples[selected] : '';
+  }
+
+  function nextPage() {
+    window.location.href = "codeditor.html";
+  }
+</script>
+
+</body>
+</html>
+

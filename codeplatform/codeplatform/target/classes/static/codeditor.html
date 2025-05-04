@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Platform 🚀</title>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">CodePlatform Editor</span>
+        </div>
+    </nav>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            background-color: rgba(197, 164, 83, 0.53);
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .editor-box {
+            background: #2d2d2d;
+            color: #d3d693;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 400px;
+            overflow-y: scroll;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .editor-box:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-custom {
+            border-radius: 30px;
+            padding: 10px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .output-box {
+            background: #bdaa7a;
+            padding: 15px;
+            min-height: 150px;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow-y: auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .output-box h5 {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+        }
+
+        .gravity-btn {
+            animation: gravity 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes gravity {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .custom-title {
+            font-size: 2rem;
+            color: #4c4c4c;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-select, .form-control {
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container py-4">
+    <h2 class="text-center mb-4 custom-title">💻 Code Platform - Your Coding Playground</h2>
+
+    <div class="mb-3">
+        <label for="language" class="form-label">Choose Your Language:</label>
+        <select class="form-select" id="language">
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+            <option value="c">C</option>
+            <option value="javascript">JavaScript</option>
+        </select>
+    </div>
+
+    <div class="editor-box mb-3">
+        <textarea id="code" class="form-control bg-dark text-light border-0" rows="15" placeholder="Write your code here..." style="height: 400px;"></textarea>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3">
+        <button onclick="runCode()" class="btn btn-success btn-custom gravity-btn">▶️ Run Code</button>
+        <button onclick="saveCode()" class="btn btn-primary btn-custom gravity-btn">💾 Save Code</button>
+        <button onclick="reviewCode()" class="btn btn-warning btn-custom gravity-btn">📝 Review Code</button>
+    </div>
+
+    <div class="output-box mt-4">
+        <h5>🖥️ Output:</h5>
+        <pre><code id="output" class="language-python"></code></pre> <!-- Wrap inside <code> -->
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+<script>
+    function runCode() {
+        const code = document.getElementById('code').value;
+        const language = document.getElementById('language').value;
+
+        fetch('/run', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({code: code, language: language, input: ''})
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('output').innerText = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function saveCode() {
+        const code = document.getElementById('code').value;
+        const language = document.getElementById('language').value;
+
+        fetch('/save', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({code: code, language: language})
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function reviewCode() {
+        const code = document.getElementById('code').value;
+        const language = document.getElementById('language').value;
+
+        fetch('/review', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({code: code, language: language})
+        })
+            .then(response => response.text())
+            .then(data => {
+                // Open review.html and pass the review text as query parameter
+                const reviewEncoded = encodeURIComponent(data);
+                window.open('review.html?review=' + reviewEncoded, '_blank');
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>
