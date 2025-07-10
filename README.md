@@ -1,33 +1,42 @@
-# AI_CODE_REVIEW
+# 🚀✨ Code Review Hub 🧑‍💻🤖
 
-# 🤖 AI Code Review Web App (Spring Boot + Gemini API)
-
-This project is a web-based code review system that allows users to input their code and receive detailed feedback through Google's Gemini API. The backend is built with **Spring Boot**, and the frontend is rendered using **Thymeleaf**.
-
----
-
-## 🚀 Features
-
-- 📝 Submit code and language for review  
-- ⚙️ Integration with Gemini API for intelligent suggestions  
-- 💾 Session-based temporary storage for review results  
-- 🌐 Beautiful Review Output Page  
-- 🔁 Simple and seamless user flow from input to output  
+Welcome to **Code Review Hub** — your AI-powered **automated code reviewer** built to help developers write better code, faster!  
+🌐 **Live on AWS!** ☁️
 
 ---
 
-## 🧱 Tech Stack
+## 📌 What is Code Review Hub?
 
-| Layer       | Technology             |
-|-------------|------------------------|
-| Backend     | Spring Boot (Java)     |
-| Frontend    | HTML, CSS, Bootstrap   |
-| Templating  | Thymeleaf              |
-| AI API      | Gemini API (Google AI) |
-| HTTP Client | RestTemplate/WebClient |
-| Build Tool  | Maven or Gradle        |
+**Code Review Hub** is a **full-stack application** where developers can:
+✅ Upload or paste code snippets  
+✅ Get instant AI-based feedback & suggestions 🧠  
+✅ Review code for bugs, improvements, and best practices  
+✅ Collaborate and learn in real-time  
 
 ---
 
-## 🏗️ Project Structure
+## 🔥 Tech Stack
 
+| 🧩 Layer | ⚙️ Tech |
+|-----------------|------------------------------|
+| 🎨 Frontend | **Kotlin Android App / React Web** *(choose yours)* |
+| 📡 Backend | **Spring Boot** with REST API |
+| 🗃️ Database | **MySQL** / **Firebase Realtime DB** *(optional)* |
+| ☁️ Cloud | **AWS Elastic Beanstalk** / **EC2** |
+| 🤖 AI | **Gemini 1.5 / OpenAI GPT** |
+
+---
+
+## 🚢 Deployed URL
+
+🌍 **Live App:** [http://coderun.ap-south-1.elasticbeanstalk.com/](http://coderun.ap-south-1.elasticbeanstalk.com/)  
+*(Replace with your actual link)*
+
+---
+
+## 🛠️ Setup Instructions
+
+1️⃣ **Clone the repo**  
+```bash
+git clone https://github.com/your-username/code-review-hub.git
+cd code-review-hub
